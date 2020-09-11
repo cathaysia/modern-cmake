@@ -29,52 +29,54 @@ Set the following properties or `CMAKE_*` initializer variables to the command l
 
 ## Clang tidy
 
+This is the command line for running clang-tidy, as a list (remember, a semicolon separated string is a list).
+
 Here is a simple example of using Clang-Tidy:
 
-```cmake
-if(CMAKE_VERSION VERSION_GREATER 3.6)
-    # Add clang-tidy if available
-    option(CLANG_TIDY_FIX "Perform fixes for Clang-Tidy" OFF)
-    find_program(
-        CLANG_TIDY_EXE
-        NAMES "clang-tidy"
-        DOC "Path to clang-tidy executable"
-    )
-
-    if(CLANG_TIDY_EXE)
-        if(CLANG_TIDY_FIX)
-            set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE}" "-fix")
-        else()
-            set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE}")
-        endif()
-    endif()
-endif()
+```bash
+cmake -S . -B build-tidy -DCMAKE_CXX_CLANG_TIDY="$(which clang-tidy);-fix"
+cmake --build build -j 1
 ```
 
-The `-fix` part is optional, and will modify your source files to try to fix the tidy warning issued. If you are working in a git repository, this is fairly safe as you can see what has changed. However, make sure you **do not run your makefile/ninja build in parallel**! This will not work very well at all if it tries to fix the same header twice.
+The `-fix` part is optional, and will modify your source files to try to fix
+the tidy warning issued. If you are working in a git repository, this is fairly
+safe as you can see what has changed. However, make sure you **do not run your
+makefile/ninja build in parallel**! This will not work very well at all if it
+tries to fix the same header twice.
 
-If you want to explicitly use the target form to ensure you only call this on your local targets, you can set a variable (I usually chose `DO_CLANG_TIDY`) instead of the `CMAKE_CXX_CLANG_TIDY` variable, then add it to your target properties as you create them.
+If you want to explicitly use the target form to ensure you only call this on
+your local targets, you can set a variable (maybe something like
+`DO_CLANG_TIDY`) instead of the `CMAKE_CXX_CLANG_TIDY` variable, then add it to
+your target properties as you create them. You can find clang-tidy in your path
+like this:
+
+```cmake
+find_program(
+    CLANG_TIDY_EXE
+    NAMES "clang-tidy"
+    DOC "Path to clang-tidy executable"
+)
+```
 
 ## Include what you use
 
-This is an example for using include what you use. First, you'll need to have the tool, such as in a docker container:
+This is an example for using include what you use. First, you'll need to have
+the tool, such as in a docker container or with brew (macOS) with `brew install
+include-what-you-use`.  Then, you can pass this into your build without
+modifying the source:
 
 ```term
-gitbook $ docker run --rm -it tuxity/include-what-you-use:clang_4.0
+build # cmake -S . -B build-iwyu -DCMAKE_CXX_INCLUDE_WHAT_YOU_USE=include-what-you-use
 ```
 
-Then, you can pass this into your build without modifying the source:
+Finally, you can collect the output and (optionally) apply the fixes:
 
 ```term
-build # cmake .. -DCMAKE_CXX_INCLUDE_WHAT_YOU_USE=include-what-you-use
-```
-
-Finally, you can collect the output and apply the fixes:
-
-```term
-build # make 2> iwyu.out
+build # cmake --build build-iwyu 2> iwyu.out
 build # fix_includes.py < iwyu.out
 ```
+
+(You should check the fixes first, or touch them up after applying!)
 
 ## Link what you use
 
