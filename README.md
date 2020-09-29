@@ -14,7 +14,7 @@ And CMake 3.11+ is supposed to be significantly faster, as well!
 
 {% hint style='working' %}
 This book is meant to be a living document. You can raise an issue or put in a merge request on [GitLab](https://gitlab.com/CLIUtils/modern-cmake).
-You can also [download a copy as a PDF](https://CLIUtils.gitlab.io/modern-cmake/modern-cmake.pdf). Be sure to check the [HSF CMake Workshop][], as well!
+You can also [download a copy as a PDF](https://CLIUtils.gitlab.io/modern-cmake/modern-cmake.pdf). Be sure to check the [HSF CMake Training][], as well!
 {% endhint %}
 
 In short, here are the most likely questions in your mind if you are considering Modern CMake:
@@ -75,7 +75,7 @@ This book tries to solve the problem of the poor examples and best practices tha
 
 Other material from the original author of this book:
 
-* [HSF CMake Workshop][]
+* [HSF CMake Training][]
 * [Interactive Modern CMake talk](https://gitlab.com/CLIUtils/modern-cmake-interactive-talk)
 
 There are some other places to find good information on the web. Here are some of them:
