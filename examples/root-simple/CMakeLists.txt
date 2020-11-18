@@ -1,7 +1,7 @@
 # CMake ROOT simple example
 
 ## [main]
-cmake_minimum_required(VERSION 3.1...3.18)
+cmake_minimum_required(VERSION 3.1...3.19)
 
 project(RootSimpleExample LANGUAGES CXX)
 
