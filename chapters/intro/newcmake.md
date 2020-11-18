@@ -257,7 +257,7 @@ as well, like FindPython. Finally, you can now iterate over multiple lists at a 
 * Several new environment variables
 * foreach can now do `ZIP_LISTS` (multiple lists at a time)
 
-## [CMake 3.18][] : CUDA with Clang
+## [CMake 3.18][] : CUDA with Clang & CMake macro language
 
 CUDA now supports Clang (without separable compilation). A new
 `CUDA_ARCHITECTURES` property was implemented to better support targeting CUDA
@@ -282,6 +282,31 @@ features and papercut fixes are sprinkled throughout, a small selection is below
 * Source can be a subdirectory for `FetchContent`
 
 
+## [CMake 3.19][] : Presets
+
+You can now add presets in JSON form, and users will get the preset defaults;
+you can specify Ninja as the "recommended" generator, for example.
+`find_package` can now take a version range, and some specialty find modules,
+like FindPython, have custom support for it.  A lot of new controls were added
+for permissions. Further support for generator expressions in more places.
+
+* New [CMake presets files](https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html) now supported - you can set things like Ninja to be the default for your project, or you can make User presets. PSA: Please add `CMakeUserPresets.json` to your `.gitignore`, even if you do not use `CMakePresets.json`.
+* CMake now uses the new build system introduced in XCode 12+
+* MSVC for Android now supported
+* `cmake -E create_hardlink` was added
+* `add_test` finally properly supports whitespace in test names
+* You can now `DEFER` `cmake_language` to run at the end of the directory processing
+* Lots of new `file` options, like temporary downloads and `COMPRESSION_LEVEL` for `ARCHIVE_CREATE`
+* `find_package` supports a version range
+* `DIRECTORY` can now include a binary directory in property commands
+* New `JSON` commands for `string`
+* New `OPTIMIZE_DEPENDENCIES` property and `CMAKE_*` variable for smartly dropping dependencies of static and object libraries.
+* PCH support expanded with `PCH_INSTANTIATE_TEMPLATES` property and `CMAKE_*` variable. 
+* Check modules have been expanded with `CUDA` and `ISPC` languages
+* FindPython: `Python*_LINK_OPTIONS` added
+* `compute-sanitizer` for ctest now supports CUDA for memcheck
+
+
 [Releases]: https://cmake.org/cmake/help/latest/release/index.html
 [CMake 3.0]: https://cmake.org/cmake/help/latest/release/3.0.html
 [CMake 3.1]: https://cmake.org/cmake/help/latest/release/3.1.html
@@ -302,5 +327,7 @@ features and papercut fixes are sprinkled throughout, a small selection is below
 [CMake 3.16]: https://cmake.org/cmake/help/latest/release/3.16.html
 [CMake 3.17]: https://cmake.org/cmake/help/latest/release/3.17.html
 [CMake 3.18]: https://cmake.org/cmake/help/latest/release/3.18.html
+[CMake 3.19]: https://cmake.org/cmake/help/latest/release/3.19.html
 [CMake master]: https://cmake.org/cmake/help/git-master/release/index.html
 [fastercmake]: https://blog.kitware.com/improving-cmakes-runtime-performance/
+
