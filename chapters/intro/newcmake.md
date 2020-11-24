@@ -284,13 +284,12 @@ features and papercut fixes are sprinkled throughout, a small selection is below
 
 ## [CMake 3.19][] : Presets
 
-You can now add presets in JSON form, and users will get the preset defaults;
-you can specify Ninja as the "recommended" generator, for example.
+You can now add presets in JSON form, and users will get the preset default.
 `find_package` can now take a version range, and some specialty find modules,
 like FindPython, have custom support for it.  A lot of new controls were added
 for permissions. Further support for generator expressions in more places.
 
-* New [CMake presets files](https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html) now supported - you can set things like Ninja to be the default for your project, or you can make User presets. PSA: Please add `CMakeUserPresets.json` to your `.gitignore`, even if you do not use `CMakePresets.json`.
+* New [CMake presets files](https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html) now supported - you can set defaults for your project per generator, or you can make User presets. PSA: Please add `CMakeUserPresets.json` to your `.gitignore`, even if you do not use `CMakePresets.json`.
 * CMake now uses the new build system introduced in XCode 12+
 * MSVC for Android now supported
 * `cmake -E create_hardlink` was added
